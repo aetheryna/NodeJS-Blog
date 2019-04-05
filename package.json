@@ -1,0 +1,14 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "Practicing NodeJS via Blog Site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "AetheryNA",
+  "license": "ISC",
+  "dependencies": {
+    "startbootstrap-clean-blog": "^5.0.5"
+  }
+}
