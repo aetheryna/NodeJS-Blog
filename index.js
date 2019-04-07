@@ -30,7 +30,7 @@ app.get("/post/new", (req, res) => {
   res.render("create");
 });
 
-app.post("/post/store", (req, res) => {
+app.post("/posts/store", (req, res) => {
   console.log(req.body);
   res.redirect("/");
 });
