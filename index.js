@@ -1,6 +1,7 @@
 const path = require("path");
 const express = require("express");
 const expressEdge = require("express-edge");
+const mongoose = require("mongoose");
 
 const app = new express();
 
@@ -11,6 +12,10 @@ app.set("views", __dirname + "/views");
 
 app.get("/", (req, res) => {
   res.render("index");
+});
+
+app.get("/post/new", (req, res) => {
+  res.render("create");
 });
 
 app.get("/about", (req, res) => {
