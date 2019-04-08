@@ -3,6 +3,7 @@ const express = require("express");
 const expressEdge = require("express-edge");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const Post = require("./database/models/Post");
 
 const app = new express();
 
@@ -22,8 +23,11 @@ app.use(
 
 app.set("views", __dirname + "/views");
 
-app.get("/", (req, res) => {
-  res.render("index");
+app.get("/", async (req, res) => {
+  const posts = await Post.find({});
+  res.render("index", {
+    posts
+  });
 });
 
 app.get("/post/new", (req, res) => {
@@ -31,8 +35,9 @@ app.get("/post/new", (req, res) => {
 });
 
 app.post("/posts/store", (req, res) => {
-  console.log(req.body);
-  res.redirect("/");
+  Post.create(req.body, (error, post) => {
+    res.redirect("/");
+  });
 });
 
 app.get("/about", (req, res) => {

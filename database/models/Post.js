@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema({
-  title: string,
-  description: string,
-  content: string
+  title: String,
+  description: String,
+  content: String
 });
 
 const Post = mongoose.model("Post", PostSchema);
