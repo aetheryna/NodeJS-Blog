@@ -37,7 +37,7 @@ app.get("/post/:id", async (req, res) => {
   });
 });
 
-app.get("/post/new", (req, res) => {
+app.get("/posts/new", (req, res) => {
   res.render("create");
 });
 
