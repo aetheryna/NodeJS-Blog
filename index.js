@@ -3,6 +3,8 @@ const express = require("express");
 const expressEdge = require("express-edge");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const fileUpload = require("express-fileupload");
+
 const Post = require("./database/models/Post");
 
 const app = new express();
@@ -13,6 +15,7 @@ mongoose
   .catch(err => console.error("Woops, something went wrong :(", err));
 
 app.use(express.static("public"));
+app.use(fileUpload());
 app.use(expressEdge);
 app.use(bodyParser.json());
 app.use(
@@ -41,12 +44,6 @@ app.get("/posts/new", (req, res) => {
   res.render("create");
 });
 
-app.post("/posts/store", (req, res) => {
-  Post.create(req.body, (error, post) => {
-    res.redirect("/");
-  });
-});
-
 app.get("/about", (req, res) => {
   res.sendFile(path.resolve(__dirname, "pages/about.html"));
 });
@@ -57,6 +54,12 @@ app.get("/contact", (req, res) => {
 
 app.get("/post", (req, res) => {
   res.sendFile(path.resolve(__dirname, "pages/post.html"));
+});
+
+app.post("/posts/store", (req, res) => {
+  Post.create(req.body, (error, post) => {
+    res.redirect("/");
+  });
 });
 
 app.listen(3000, () => {
