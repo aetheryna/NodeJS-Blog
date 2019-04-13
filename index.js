@@ -6,18 +6,20 @@ const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 
 const Post = require("./database/models/Post");
+const storePost = require("./middleware/storePost");
 
 const app = new express();
 
 mongoose
   .connect("mongodb://localhost:27017/node-blog", { useNewUrlParser: true })
-  .then(() => "You are connected to MongoDB!")
+  .then(() => console.log("You are connected to MongoDB!"))
   .catch(err => console.error("Woops, something went wrong :(", err));
 
 app.use(express.static("public"));
 app.use(fileUpload());
 app.use(expressEdge);
 app.use(bodyParser.json());
+app.use("/posts/store", storePost);
 app.use(
   bodyParser.urlencoded({
     extended: true
