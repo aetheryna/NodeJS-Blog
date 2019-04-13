@@ -57,8 +57,18 @@ app.get("/post", (req, res) => {
 });
 
 app.post("/posts/store", (req, res) => {
-  Post.create(req.body, (error, post) => {
-    res.redirect("/");
+  const { image } = req.files;
+
+  image.mv(path.resolve(__dirname, "public/posts", image.name), error => {
+    Post.create(
+      {
+        ...req.body,
+        image: `/posts/${image.name}`
+      },
+      (error, post) => {
+        res.redirect("/");
+      }
+    );
   });
 });
 
