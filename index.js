@@ -8,6 +8,11 @@ const fileUpload = require("express-fileupload");
 const Post = require("./database/models/Post");
 const storePost = require("./middleware/storePost");
 
+const homePageController = require("./controllers/homePage");
+const getPostController = require("./controllers/getPost");
+const storePostController = require("./controllers/storePost");
+const createPostController = require("./controllers/createPost");
+
 const app = new express();
 
 mongoose
@@ -28,23 +33,10 @@ app.use(
 
 app.set("views", __dirname + "/views");
 
-app.get("/", async (req, res) => {
-  const posts = await Post.find({});
-  res.render("index", {
-    posts
-  });
-});
-
-app.get("/post/:id", async (req, res) => {
-  const posts = await Post.findById(req.params.id);
-  res.render("post", {
-    posts
-  });
-});
-
-app.get("/posts/new", (req, res) => {
-  res.render("create");
-});
+app.get("/", homePageController);
+app.get("/post/:id", getPostController);
+app.get("/posts/new", createPostController);
+app.post("/posts/store", storePostController);
 
 app.get("/about", (req, res) => {
   res.sendFile(path.resolve(__dirname, "pages/about.html"));
@@ -56,25 +48,6 @@ app.get("/contact", (req, res) => {
 
 app.get("/post", (req, res) => {
   res.sendFile(path.resolve(__dirname, "pages/post.html"));
-});
-
-app.post("/posts/store", (req, res) => {
-  const image = req.files;
-  if (image != null) {
-    image.mv(path.resolve(__dirname, "public/posts", image.name), error => {
-      Post.create(
-        {
-          ...req.body,
-          image: `/posts/${image.name}`
-        },
-        (error, post) => {
-          res.redirect("/");
-        }
-      );
-    });
-  } else {
-    res.redirect("/posts/new");
-  }
 });
 
 app.listen(3000, () => {
