@@ -12,6 +12,7 @@ const homePageController = require("./controllers/homePage");
 const getPostController = require("./controllers/getPost");
 const storePostController = require("./controllers/storePost");
 const createPostController = require("./controllers/createPost");
+const createAccountController = require("./controllers/createAccount");
 
 const app = new express();
 
@@ -36,6 +37,7 @@ app.set("views", __dirname + "/views");
 app.get("/", homePageController);
 app.get("/post/:id", getPostController);
 app.get("/posts/new", createPostController);
+app.get("/auth/register", createAccountController);
 app.post("/posts/store", storePostController);
 
 app.get("/about", (req, res) => {
