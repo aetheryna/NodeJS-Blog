@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 const expressSession = require("express-session");
 const connectMongo = require("connect-mongo");
+const connectFlash = require("connect-flash");
 
 const Post = require("./database/models/Post");
 const storePost = require("./middleware/storePost");
@@ -32,6 +33,7 @@ app.use(express.static("public"));
 app.use(fileUpload());
 app.use(expressEdge);
 app.use(bodyParser.json());
+app.use(connectFlash());
 app.use("/posts/store", storePost);
 app.use(
   bodyParser.urlencoded({
