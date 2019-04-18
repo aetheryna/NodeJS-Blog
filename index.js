@@ -9,6 +9,7 @@ const connectMongo = require("connect-mongo");
 
 const Post = require("./database/models/Post");
 const storePost = require("./middleware/storePost");
+const auth = require("./middleware/auth");
 
 const homePageController = require("./controllers/homePage");
 const getPostController = require("./controllers/getPost");
@@ -50,7 +51,7 @@ app.set("views", __dirname + "/views");
 
 app.get("/", homePageController);
 app.get("/post/:id", getPostController);
-app.get("/posts/new", createPostController);
+app.get("/posts/new", auth, createPostController);
 app.get("/auth/register", createAccountController);
 app.get("/auth/login", loginController);
 
