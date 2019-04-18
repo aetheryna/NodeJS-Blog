@@ -13,6 +13,7 @@ const getPostController = require("./controllers/getPost");
 const storePostController = require("./controllers/storePost");
 const createPostController = require("./controllers/createPost");
 const createAccountController = require("./controllers/createAccount");
+const storeUserController = require("./controllers/storeUser");
 
 const app = new express();
 
@@ -38,6 +39,7 @@ app.get("/", homePageController);
 app.get("/post/:id", getPostController);
 app.get("/posts/new", createPostController);
 app.get("/auth/register", createAccountController);
+app.post("/users/register", storeUserController);
 app.post("/posts/store", storePostController);
 
 app.get("/about", (req, res) => {
