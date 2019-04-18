@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 const expressSession = require("express-session");
+const connectMongo = require("connect-mongo");
 
 const Post = require("./database/models/Post");
 const storePost = require("./middleware/storePost");
@@ -19,6 +20,7 @@ const loginController = require("./controllers/login");
 const loginUserController = require("./controllers/loginUser");
 
 const app = new express();
+const mongoStore = connectMongo(expressSession);
 
 mongoose
   .connect("mongodb://localhost:27017/node-blog", { useNewUrlParser: true })
@@ -37,7 +39,10 @@ app.use(
 );
 app.use(
   expressSession({
-    secret: "secret"
+    secret: "secret",
+    store: new mongoStore({
+      mongooseConnection: mongoose.connection
+    })
   })
 );
 

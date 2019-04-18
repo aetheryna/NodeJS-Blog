@@ -11,6 +11,7 @@
   "dependencies": {
     "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
+    "connect-mongo": "^2.0.3",
     "express": "^4.16.4",
     "express-edge": "^1.0.0",
     "express-fileupload": "^1.1.4",
