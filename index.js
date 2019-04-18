@@ -4,6 +4,7 @@ const expressEdge = require("express-edge");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
+const expressSession = require("express-session");
 
 const Post = require("./database/models/Post");
 const storePost = require("./middleware/storePost");
@@ -32,6 +33,11 @@ app.use("/posts/store", storePost);
 app.use(
   bodyParser.urlencoded({
     extended: true
+  })
+);
+app.use(
+  expressSession({
+    secret: "secret"
   })
 );
 

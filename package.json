@@ -14,6 +14,7 @@
     "express": "^4.16.4",
     "express-edge": "^1.0.0",
     "express-fileupload": "^1.1.4",
+    "express-session": "^1.16.1",
     "mongoose": "^5.4.22",
     "nodemon": "^1.18.10",
     "startbootstrap-clean-blog": "^5.0.5"
