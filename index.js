@@ -7,6 +7,7 @@ const fileUpload = require("express-fileupload");
 const expressSession = require("express-session");
 const connectMongo = require("connect-mongo");
 const connectFlash = require("connect-flash");
+const edge = require("edge.js");
 
 const Post = require("./database/models/Post");
 const storePost = require("./middleware/storePost");
@@ -49,6 +50,10 @@ app.use(
     })
   })
 );
+app.use("*", (req, res, next) => {
+  edge.global("auth", req.session.userId);
+  next();
+});
 
 app.set("views", __dirname + "/views");
 
