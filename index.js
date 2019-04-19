@@ -22,6 +22,7 @@ const createAccountController = require("./controllers/createAccount");
 const storeUserController = require("./controllers/storeUser");
 const loginController = require("./controllers/login");
 const loginUserController = require("./controllers/loginUser");
+const logoutController = require("./controllers/logout");
 
 const app = new express();
 const mongoStore = connectMongo(expressSession);
@@ -62,6 +63,7 @@ app.get("/post/:id", getPostController);
 app.get("/posts/new", auth, createPostController);
 app.get("/auth/register", redirectIfAuthenticated, createAccountController);
 app.get("/auth/login", redirectIfAuthenticated, loginController);
+app.get("/auth/logout", redirectIfAuthenticated, logoutController);
 
 app.post("/users/register", redirectIfAuthenticated, storeUserController);
 app.post("/users/login", redirectIfAuthenticated, loginUserController);
