@@ -11,6 +11,7 @@ const connectFlash = require("connect-flash");
 const Post = require("./database/models/Post");
 const storePost = require("./middleware/storePost");
 const auth = require("./middleware/auth");
+const redirectIfAuthenticated = require("./middleware/redirectIfAuthenticated");
 
 const homePageController = require("./controllers/homePage");
 const getPostController = require("./controllers/getPost");
@@ -54,11 +55,11 @@ app.set("views", __dirname + "/views");
 app.get("/", homePageController);
 app.get("/post/:id", getPostController);
 app.get("/posts/new", auth, createPostController);
-app.get("/auth/register", createAccountController);
-app.get("/auth/login", loginController);
+app.get("/auth/register", redirectIfAuthenticated, createAccountController);
+app.get("/auth/login", redirectIfAuthenticated, loginController);
 
-app.post("/users/register", storeUserController);
-app.post("/users/login", loginUserController);
+app.post("/users/register", redirectIfAuthenticated, storeUserController);
+app.post("/users/login", redirectIfAuthenticated, loginUserController);
 app.post("/posts/store", storePostController);
 
 app.get("/about", (req, res) => {
